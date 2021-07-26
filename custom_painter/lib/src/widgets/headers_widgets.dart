@@ -25,3 +25,16 @@ class HeaderBorderCircle extends StatelessWidget {
     );
   }
 }
+
+class HeaderDiagonal extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Transform.rotate(
+      angle: -0.09,
+      child: Container(
+        height: 250,
+        color: Color(0xff615AAB),
+      ),
+    );
+  }
+}
