@@ -227,7 +227,7 @@ class _HeaderWavesPainter extends CustomPainter {
 
     path.quadraticBezierTo(
       size.width * 0.25,
-      size.width * 0.75,
+      size.height * 0.4,
       size.width * 0.5,
       size.height * 0.3,
     );
@@ -305,7 +305,7 @@ class _HeaderWaveGradientPainter extends CustomPainter {
 
     path.quadraticBezierTo(
       size.width * 0.25,
-      size.width * 0.75,
+      size.height * 0.4,
       size.width * 0.5,
       size.height * 0.3,
     );
@@ -313,7 +313,7 @@ class _HeaderWaveGradientPainter extends CustomPainter {
     path.quadraticBezierTo(
       size.width * 0.75,
       size.height * 0.23,
-      size.width,
+      size.width * 1,
       size.height * 0.3,
     );
 
