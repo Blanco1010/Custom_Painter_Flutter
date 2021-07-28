@@ -28,12 +28,17 @@ class _BoxAnimationState extends State<BoxAnimation>
   Animation<double>? rotation;
 
   Animation<double>? opacity;
+  Animation<double>? opacityOut;
+
+  Animation<double>? moveAxisY;
+
+  Animation<double>? enlarge;
 
   @override
   void initState() {
     controller = new AnimationController(
       vsync: this,
-      duration: Duration(seconds: 2),
+      duration: Duration(seconds: 5),
     );
 
     final double radian = pi;
@@ -45,18 +50,38 @@ class _BoxAnimationState extends State<BoxAnimation>
       ),
     );
 
-    opacity = Tween(begin: 0.1, end: 1.0).animate(
+    opacity = Tween(begin: 0.5, end: 1.0).animate(
       CurvedAnimation(
         parent: controller!,
-        curve: Interval(0.50, 1, curve: Curves.linear),
+        curve: Interval(0.0, 0.70, curve: Curves.linear),
+      ),
+    );
+
+    opacityOut = Tween(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: controller!,
+        curve: Interval(0.75, 1, curve: Curves.linear),
+      ),
+    );
+
+    moveAxisY = Tween(begin: 0.1, end: -200.0).animate(
+      CurvedAnimation(
+        parent: controller!,
+        curve: Curves.easeInOutBack,
+      ),
+    );
+
+    enlarge = Tween(begin: 1.0, end: 2.0).animate(
+      CurvedAnimation(
+        parent: controller!,
+        curve: Curves.easeInOutBack,
       ),
     );
 
     controller!.addListener(() {
-      print('Status ${controller!.status}');
-
+      print(controller!.status);
       if (controller!.isCompleted) {
-        controller!.repeat();
+        controller!.dispose();
       }
 
       // if (controller!.isCompleted) {
@@ -72,6 +97,7 @@ class _BoxAnimationState extends State<BoxAnimation>
 
   @override
   void dispose() {
+    print('end');
     controller!.dispose();
     super.dispose();
   }
@@ -80,17 +106,20 @@ class _BoxAnimationState extends State<BoxAnimation>
   Widget build(BuildContext context) {
     //Play adn Repeat
     // controller!.repeat();
-
     return AnimatedBuilder(
       animation: controller!,
       child: _Rectangle(),
       builder: (BuildContext context, Widget? child) {
-        print(rotation!.value);
-        return Transform.rotate(
-          angle: rotation!.value,
-          child: Opacity(
-            opacity: opacity!.value,
-            child: child,
+        // print('Rotation ${rotation!.status}');
+        // print(rotation!.value);
+        return Transform.translate(
+          offset: Offset(0, moveAxisY!.value),
+          child: Transform.rotate(
+            angle: rotation!.value,
+            child: Opacity(
+              opacity: opacity!.value - opacityOut!.value,
+              child: Transform.scale(scale: enlarge!.value, child: child),
+            ),
           ),
         );
       },
