@@ -68,7 +68,8 @@ class _BoxAnimationState extends State<_BoxAnimation>
 
     controller!.addListener(() {
       if (controller!.status == AnimationStatus.completed) {
-        controller!.reset();
+        print('prueba');
+        controller!.repeat();
       }
     });
 
