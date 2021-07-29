@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -6,10 +8,53 @@ class CircleProgressPage extends StatefulWidget {
   _CircleProgressPageState createState() => _CircleProgressPageState();
 }
 
-class _CircleProgressPageState extends State<CircleProgressPage> {
+class _CircleProgressPageState extends State<CircleProgressPage>
+    with SingleTickerProviderStateMixin {
+  AnimationController? controller;
+
+  double percentaje = 0.0;
+  double newPercentaje = 0.0;
+
+  @override
+  void initState() {
+    controller = new AnimationController(
+        vsync: this, duration: Duration(milliseconds: 500));
+
+    controller!.addListener(() {
+      //print('valor: ${controller!.value}');
+      setState(() {
+        percentaje = lerpDouble(percentaje, newPercentaje, controller!.value)!;
+      });
+    });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller!.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          percentaje = newPercentaje;
+          newPercentaje += 10;
+          if (newPercentaje > 100) {
+            newPercentaje = 0;
+            percentaje = 0;
+          }
+          controller!.forward(from: 0.0);
+          setState(() {});
+        },
+        child: Icon(
+          Icons.refresh,
+        ),
+        backgroundColor: Colors.black,
+      ),
       body: Center(
         child: Container(
           padding: EdgeInsets.all(10),
@@ -17,7 +62,7 @@ class _CircleProgressPageState extends State<CircleProgressPage> {
           height: 300,
           //color: Colors.red,
           child: CustomPaint(
-            painter: _MyradialProgress(50),
+            painter: _MyradialProgress(percentaje),
           ),
         ),
       ),
