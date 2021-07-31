@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'package:custom_painter/src/widgets/headers_widgets.dart';
 import 'package:custom_painter/src/pages/animation_page.dart';
 
 class HeadersPage extends StatelessWidget {
