@@ -4,6 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:custom_painter/models/slider_model.dart';
 
 class Slideshow extends StatelessWidget {
+  final List<Widget> slides;
+
+  Slideshow({required this.slides});
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -12,9 +16,9 @@ class Slideshow extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: _Slides(),
+              child: _Slides(slides: this.slides),
             ),
-            _Dots(),
+            _Dots(dots: this.slides.length),
           ],
         ),
       ),
@@ -23,6 +27,10 @@ class Slideshow extends StatelessWidget {
 }
 
 class _Slides extends StatefulWidget {
+  final List<Widget> slides;
+
+  _Slides({required this.slides});
+
   @override
   __SlidesState createState() => __SlidesState();
 }
@@ -53,20 +61,23 @@ class __SlidesState extends State<_Slides> {
       child: PageView(
         controller: pageController,
         physics: BouncingScrollPhysics(),
+        /*
         children: [
           _Slide(svg: 'assets/svgs/slide-1.svg'),
           _Slide(svg: 'assets/svgs/slide-2.svg'),
           _Slide(svg: 'assets/svgs/slide-3.svg'),
         ],
+        */
+        children: widget.slides.map((slide) => _Slide(slide: slide)).toList(),
       ),
     );
   }
 }
 
 class _Slide extends StatelessWidget {
-  final String svg;
+  final Widget slide;
 
-  const _Slide({required this.svg});
+  const _Slide({required this.slide});
 
   @override
   Widget build(BuildContext context) {
@@ -74,12 +85,16 @@ class _Slide extends StatelessWidget {
       height: double.infinity,
       width: double.infinity,
       padding: EdgeInsets.all(30),
-      child: SvgPicture.asset(svg),
+      child: slide,
     );
   }
 }
 
 class _Dots extends StatelessWidget {
+  final int dots;
+
+  _Dots({required this.dots});
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -89,11 +104,20 @@ class _Dots extends StatelessWidget {
       //color: Colors.red,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
+        /*
         children: [
           _Dot(size: size, index: 0),
           _Dot(size: size, index: 1),
           _Dot(size: size, index: 2),
         ],
+        */
+        children: List.generate(
+          dots,
+          (index) => _Dot(
+            size: size,
+            index: index,
+          ),
+        ),
       ),
     );
   }
