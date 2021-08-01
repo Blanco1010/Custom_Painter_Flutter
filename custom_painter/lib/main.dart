@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Diseños APP',
       debugShowCheckedModeBanner: false,
-      home: SladeShowPage(),
+      home: SlideshowPage(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
