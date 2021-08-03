@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:custom_painter/src/pages/slideshow_page.dart';
+
+import 'package:custom_painter/src/pages/pinterest_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Diseños APP',
       debugShowCheckedModeBanner: false,
-      home: SlideshowPage(),
+      home: PinterestPage(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
