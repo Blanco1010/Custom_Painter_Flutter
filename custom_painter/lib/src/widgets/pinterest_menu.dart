@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class PinterestButton {
   final Function() onPressed;
@@ -38,8 +39,11 @@ class PinterestMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _PinterestMenuBackground(
-      child: _MenuItems(items: itmes),
+    return ChangeNotifierProvider(
+      create: (_) => new _MenuModel(),
+      child: _PinterestMenuBackground(
+        child: _MenuItems(items: itmes),
+      ),
     );
   }
 }
@@ -77,9 +81,12 @@ class _MenuItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: List.generate(items.length,
-            (i) => _PinterestMenuButton(index: i, item: items[i])));
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: List.generate(
+        items.length,
+        (i) => _PinterestMenuButton(index: i, item: items[i]),
+      ),
+    );
   }
 }
 
@@ -87,20 +94,36 @@ class _PinterestMenuButton extends StatelessWidget {
   final int index;
   final PinterestButton item;
 
-  const _PinterestMenuButton({required this.index, required this.item});
+  _PinterestMenuButton({required this.index, required this.item});
 
   @override
   Widget build(BuildContext context) {
+    final itemSelect = Provider.of<_MenuModel>(context).itemSelect;
+
     return GestureDetector(
-      onTap: item.onPressed,
+      onTap: () {
+        Provider.of<_MenuModel>(context, listen: false).itemSelect = index;
+        item.onPressed();
+      },
       behavior: HitTestBehavior.translucent,
       child: Container(
         child: Icon(
           item.iconData,
-          size: 25,
-          color: Colors.blueGrey,
+          size: (itemSelect == index) ? 30 : 25,
+          color: (itemSelect == index) ? Colors.red : Colors.blueGrey,
         ),
       ),
     );
+  }
+}
+
+class _MenuModel with ChangeNotifier {
+  int _itemSelect = 0;
+
+  int get itemSelect => this._itemSelect;
+
+  set itemSelect(int vaule) {
+    this._itemSelect = vaule;
+    notifyListeners();
   }
 }
