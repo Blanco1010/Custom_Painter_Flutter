@@ -327,3 +327,30 @@ class _HeaderWaveGradientPainter extends CustomPainter {
     return true;
   }
 }
+
+class HeaderEmergency extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    //Gradient to draw header
+    final gradient = LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: <Color>[
+          Color(0xff526BF6),
+          Color(0xff67ACF2),
+        ],
+        stops: [
+          0.0,
+          0.5
+        ]);
+
+    return Container(
+      width: double.infinity,
+      height: 270,
+      decoration: BoxDecoration(
+          color: Colors.red,
+          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(100)),
+          gradient: gradient),
+    );
+  }
+}

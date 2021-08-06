@@ -1,3 +1,4 @@
+import 'package:custom_painter/src/pages/emergency_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:custom_painter/src/pages/pinterest_page.dart';
@@ -13,7 +14,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Diseños APP',
       debugShowCheckedModeBanner: false,
-      home: PinterestPage(),
+      //home: PinterestPage(),
+      home: EmergencyPage(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
