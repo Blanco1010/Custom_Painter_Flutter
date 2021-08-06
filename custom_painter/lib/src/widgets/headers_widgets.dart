@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HeaderBox extends StatelessWidget {
   @override
@@ -329,28 +330,93 @@ class _HeaderWaveGradientPainter extends CustomPainter {
 }
 
 class HeaderEmergency extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final Color color1;
+  final Color color2;
+
+  const HeaderEmergency(
+      {required this.icon,
+      required this.title,
+      required this.subtitle,
+      required this.color1,
+      required this.color2});
+
   @override
   Widget build(BuildContext context) {
-    //Gradient to draw header
-    final gradient = LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: <Color>[
-          Color(0xff526BF6),
-          Color(0xff67ACF2),
-        ],
-        stops: [
-          0.0,
-          0.5
-        ]);
+    return Stack(
+      children: <Widget>[
+        _IconHeaderEmergency(
+          color: color1,
+          color2: color2,
+        ),
+        Positioned(
+          top: -60,
+          left: -70,
+          child: FaIcon(
+            icon,
+            size: 250,
+            color: Colors.white.withOpacity(0.4),
+          ),
+        ),
+        Column(
+          children: [
+            SizedBox(
+              height: 50,
+              width: double.infinity,
+            ),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.white.withOpacity(0.7),
+              ),
+            ),
+            SizedBox(height: 30),
+            Text(
+              subtitle,
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.white.withOpacity(0.8),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 30),
+            FaIcon(
+              FontAwesomeIcons.plus,
+              size: 90,
+              color: Colors.white,
+            )
+          ],
+        )
+      ],
+    );
+  }
+}
 
+class _IconHeaderEmergency extends StatelessWidget {
+  final Color color;
+  final Color color2;
+
+  const _IconHeaderEmergency({
+    required this.color,
+    required this.color2,
+  });
+  @override
+  Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       height: 270,
       decoration: BoxDecoration(
-          color: Colors.red,
-          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(100)),
-          gradient: gradient),
+        color: Colors.red,
+        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(100)),
+        gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: <Color>[color, color2],
+            stops: [0.0, 0.5]),
+      ),
     );
   }
 }
