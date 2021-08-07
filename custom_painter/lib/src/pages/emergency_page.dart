@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:custom_painter/src/widgets/button_fat.dart';
 import 'package:custom_painter/src/widgets/headers_widgets.dart';
@@ -88,12 +89,16 @@ final items = <ItemBoton>[
 ];
 
 List<Widget> itemMap = items
-    .map((e) => ButtonFat(
-          icon: e.icon,
-          title: e.text,
-          color: e.color1,
-          color2: e.color2,
-          onPressed: () {},
+    .map((e) => FadeInLeft(
+          duration: Duration(milliseconds: 250),
+          from: 300,
+          child: ButtonFat(
+            icon: e.icon,
+            title: e.text,
+            color: e.color1,
+            color2: e.color2,
+            onPressed: () {},
+          ),
         ))
     .toList();
 
@@ -113,22 +118,41 @@ class EmergencyPage extends StatelessWidget {
               ],
             ),
           ),
-          HeaderPage(),
+          _HeaderPage(),
         ],
       ),
     );
   }
 }
 
-class HeaderPage extends StatelessWidget {
+class _HeaderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return HeaderEmergency(
-      icon: FontAwesomeIcons.plus,
-      title: 'Haz solicitado',
-      subtitle: 'Asistencia Médica',
-      color1: Color(0xff526BF6),
-      color2: Color(0xff67ACF2),
+    return Stack(
+      children: [
+        HeaderEmergency(
+          icon: FontAwesomeIcons.plus,
+          title: 'Haz solicitado',
+          subtitle: 'Asistencia Médica',
+          color1: Color(0xff526BF6),
+          color2: Color(0xff67ACF2),
+        ),
+        Positioned(
+          right: 0,
+          top: 10,
+          child: RawMaterialButton(
+            padding: EdgeInsets.all(10),
+            shape: CircleBorder(),
+            onPressed: () {
+              print('');
+            },
+            child: FaIcon(
+              FontAwesomeIcons.ellipsisV,
+              color: Colors.white,
+            ),
+          ),
+        )
+      ],
     );
   }
 }
