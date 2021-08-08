@@ -1,4 +1,5 @@
 import 'package:custom_painter/src/pages/emergency_page.dart';
+import 'package:custom_painter/src/pages/slider_list_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:custom_painter/src/pages/pinterest_page.dart';
@@ -15,7 +16,8 @@ class MyApp extends StatelessWidget {
       title: 'Diseños APP',
       debugShowCheckedModeBanner: false,
       //home: PinterestPage(),
-      home: EmergencyPage(),
+      //home: EmergencyPage(),
+      home: SliderListPage(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
