@@ -6,7 +6,42 @@ class SliderListPage extends StatelessWidget {
     return Scaffold(
       //body: _ListTask(),
       //body: _Title(),
-      body: _MainScroll(),
+      body: Stack(
+        children: [
+          _MainScroll(),
+          Positioned(bottom: 0, right: 0, child: _ButtonNewList()),
+        ],
+      ),
+    );
+  }
+}
+
+class _ButtonNewList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    return ButtonTheme(
+      minWidth: size.width * 0.9,
+      height: 80,
+      child: MaterialButton(
+        color: Colors.red,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(50)),
+        ),
+        child: Text(
+          'CREATE NEW LIST',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 3,
+          ),
+        ),
+        onPressed: () {
+          print('object');
+        },
+      ),
     );
   }
 }
@@ -29,6 +64,7 @@ class _MainScroll extends StatelessWidget {
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.vertical,
       slivers: [
+        /*
         SliverAppBar(
           floating: true,
           elevation: 0,
@@ -36,11 +72,57 @@ class _MainScroll extends StatelessWidget {
           title: Text('Hola Mundo'),
           centerTitle: true,
         ),
+        */
+
+        SliverPersistentHeader(
+          floating: false,
+          delegate: _SliverCustomHeaderDelegate(
+            minheight: 140,
+            maxheight: 140,
+            child: Container(
+              alignment: Alignment.centerLeft,
+              child: _Title(),
+            ),
+          ),
+        ),
         SliverList(
-          delegate: SliverChildListDelegate(items),
+          delegate: SliverChildListDelegate([
+            ...items,
+            SizedBox(height: 50),
+          ]),
         )
       ],
     );
+  }
+}
+
+class _SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final double minheight;
+  final double maxheight;
+  final Widget child;
+
+  _SliverCustomHeaderDelegate({
+    required this.minheight,
+    required this.maxheight,
+    required this.child,
+  });
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return SizedBox.expand(child: child);
+  }
+
+  @override
+  double get maxExtent => maxheight;
+
+  @override
+  double get minExtent => minheight;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return (maxheight != oldDelegate.maxExtent ||
+        minExtent != oldDelegate.minExtent);
   }
 }
 
