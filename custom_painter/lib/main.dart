@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 void main() {
   runApp(
     ChangeNotifierProvider(
-      create: (_) => new ThemeChanger(),
+      create: (_) => new ThemeChanger(2),
       child: MyApp(),
     ),
   );

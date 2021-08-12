@@ -94,10 +94,10 @@ class _Menu extends StatelessWidget {
               left: false,
               right: false,
               child: ListTile(
-                leading: Icon(Icons.lightbulb_outline, color: Colors.blue),
+                leading: Icon(Icons.lightbulb_outline, color: accentColor),
                 title: Text('Custom Theme'),
                 trailing: Switch.adaptive(
-                    activeColor: Colors.blue,
+                    activeColor: accentColor,
                     value: appTheme.customTheme,
                     onChanged: (value) => appTheme.customTheme = value),
               ),

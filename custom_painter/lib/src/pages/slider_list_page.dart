@@ -1,4 +1,6 @@
+import 'package:custom_painter/src/themes/themechanger.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SliderListPage extends StatelessWidget {
   @override
@@ -9,7 +11,11 @@ class SliderListPage extends StatelessWidget {
       body: Stack(
         children: [
           _MainScroll(),
-          Positioned(bottom: 0, right: 0, child: _ButtonNewList()),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: _ButtonNewList(),
+          ),
         ],
       ),
     );
@@ -21,18 +27,22 @@ class _ButtonNewList extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
+    final appTheme = Provider.of<ThemeChanger>(context);
+
     return ButtonTheme(
       minWidth: size.width * 0.9,
       height: 80,
       child: MaterialButton(
-        color: Colors.red,
+        color: (appTheme.darkTheme)
+            ? appTheme.currentTheme.accentColor
+            : Colors.red,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(topLeft: Radius.circular(50)),
         ),
         child: Text(
           'CREATE NEW LIST',
           style: TextStyle(
-            color: Colors.white,
+            color: appTheme.currentTheme.scaffoldBackgroundColor,
             fontSize: 25,
             fontWeight: FontWeight.bold,
             letterSpacing: 3,
@@ -129,6 +139,8 @@ class _SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
 class _Title extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context);
+
     return Column(
       children: <Widget>[
         Container(
@@ -136,7 +148,7 @@ class _Title extends StatelessWidget {
           child: Text(
             'New',
             style: TextStyle(
-              color: Colors.black,
+              color: (appTheme.darkTheme) ? Colors.grey : Colors.black,
               fontSize: 40,
               fontWeight: FontWeight.w500,
             ),
@@ -197,13 +209,17 @@ class _ListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context);
+
     return Container(
       alignment: Alignment.centerLeft,
       height: 130,
       margin: EdgeInsets.all(10),
       padding: EdgeInsets.all(30),
       decoration: BoxDecoration(
-          color: color, borderRadius: BorderRadius.all(Radius.circular(30))),
+        color: (appTheme.darkTheme) ? Colors.grey : color,
+        borderRadius: BorderRadius.all(Radius.circular(30)),
+      ),
       child: Text(
         title,
         style: TextStyle(

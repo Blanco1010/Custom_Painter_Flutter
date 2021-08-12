@@ -1,3 +1,4 @@
+import 'package:custom_painter/src/themes/themechanger.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -30,6 +31,8 @@ class _PinesterMenuLocation extends StatelessWidget {
 
     final show = Provider.of<_MenuModel>(context).show;
 
+    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
+
     return Positioned(
         bottom: 30,
         child: Container(
@@ -37,8 +40,8 @@ class _PinesterMenuLocation extends StatelessWidget {
           child: Align(
             child: PinterestMenu(
               show: show,
-              backgroundColor: Colors.white,
-              activeColor: Colors.blue,
+              backgroundColor: appTheme.scaffoldBackgroundColor,
+              activeColor: appTheme.accentColor,
               inactiveColor: Colors.grey,
               items: [
                 PinterestButton(

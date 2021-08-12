@@ -1,5 +1,7 @@
+import 'package:custom_painter/src/themes/themechanger.dart';
 import 'package:custom_painter/src/widgets/radial_progress.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class GraphicsCirclePage extends StatefulWidget {
   @override
@@ -30,17 +32,26 @@ class _GraphicsCirclePageState extends State<GraphicsCirclePage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 CustomRadialProgress(
-                    percentaje: percentaje, color: Colors.black),
+                  percentaje: percentaje,
+                  color: Colors.black,
+                ),
                 CustomRadialProgress(
-                    percentaje: percentaje, color: Colors.amber),
+                  percentaje: percentaje * 1.2,
+                  color: Colors.amber,
+                ),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                CustomRadialProgress(percentaje: percentaje, color: Colors.red),
                 CustomRadialProgress(
-                    percentaje: percentaje, color: Colors.blue),
+                  percentaje: percentaje * 1.6,
+                  color: Colors.red,
+                ),
+                CustomRadialProgress(
+                  percentaje: percentaje * 0.5,
+                  color: Colors.blue,
+                ),
               ],
             )
           ],
@@ -59,6 +70,8 @@ class CustomRadialProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
+
     return Container(
       width: 200,
       height: 200,
@@ -66,7 +79,7 @@ class CustomRadialProgress extends StatelessWidget {
       child: RadialProgress(
         percentaje: percentaje,
         colorPrimary: color,
-        colorSecondary: Colors.grey,
+        colorSecondary: appTheme.backgroundColor,
       ),
     );
   }
