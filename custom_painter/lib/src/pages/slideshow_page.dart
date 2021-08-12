@@ -1,6 +1,8 @@
+import 'package:custom_painter/src/themes/themechanger.dart';
 import 'package:custom_painter/src/widgets/slideshow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class SlideshowPage extends StatelessWidget {
   @override
@@ -23,9 +25,10 @@ class MySlideshow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context);
     return Slideshow(
       pointUp: false,
-      colorPrimary: Colors.red,
+      colorPrimary: appTheme.currentTheme.accentColor,
       colorSecondary: Colors.grey,
       bulletPrimary: 0.05,
       bulletSecondary: 0.03,

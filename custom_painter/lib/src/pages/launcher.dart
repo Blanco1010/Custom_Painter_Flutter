@@ -24,21 +24,23 @@ class LauncherPage extends StatelessWidget {
 class _ListOptions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
+
     return ListView.separated(
       physics: BouncingScrollPhysics(),
       separatorBuilder: (context, i) => Divider(
-        color: Colors.blue,
+        color: appTheme.primaryColorLight,
       ),
       itemCount: pagesRoute.length,
       itemBuilder: (context, i) => ListTile(
         leading: FaIcon(
           pagesRoute[i].icon,
-          color: Colors.blue,
+          color: appTheme.accentColor,
         ),
         title: Text(pagesRoute[i].title),
         trailing: Icon(
           Icons.chevron_right,
-          color: Colors.blue,
+          color: appTheme.accentColor,
         ),
         onTap: () {
           Navigator.push(
@@ -57,6 +59,7 @@ class _Menu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = Provider.of<ThemeChanger>(context);
+    final accentColor = appTheme.currentTheme.accentColor;
 
     return Drawer(
       child: Container(
@@ -68,7 +71,7 @@ class _Menu extends StatelessWidget {
                 width: double.infinity,
                 height: 130,
                 child: CircleAvatar(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: accentColor,
                   child: Text(
                     'JC',
                     style: TextStyle(fontSize: 50),
@@ -78,10 +81,10 @@ class _Menu extends StatelessWidget {
             ),
             Expanded(child: _ListOptions()),
             ListTile(
-              leading: Icon(Icons.lightbulb_outline, color: Colors.blue),
+              leading: Icon(Icons.lightbulb_outline, color: accentColor),
               title: Text('Dark Mode'),
               trailing: Switch.adaptive(
-                  activeColor: Colors.blue,
+                  activeColor: accentColor,
                   value: appTheme.darkTheme,
                   onChanged: (value) => appTheme.darkTheme = value),
             ),
