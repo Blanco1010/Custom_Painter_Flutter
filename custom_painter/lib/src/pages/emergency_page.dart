@@ -105,20 +105,29 @@ List<Widget> itemMap = items
 class EmergencyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    bool isLarge;
+    if (MediaQuery.of(context).size.height > 550) {
+      isLarge = true;
+    } else {
+      isLarge = false;
+    }
+
     return Scaffold(
       body: Stack(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(top: 200),
-            child: ListView(
-              physics: BouncingScrollPhysics(),
-              children: <Widget>[
-                SizedBox(height: 80),
-                ...itemMap,
-              ],
+            margin: EdgeInsets.only(top: (isLarge) ? 220 : 10),
+            child: SafeArea(
+              child: ListView(
+                physics: BouncingScrollPhysics(),
+                children: <Widget>[
+                  if (isLarge) SizedBox(height: 80),
+                  ...itemMap,
+                ],
+              ),
             ),
           ),
-          _HeaderPage(),
+          if (isLarge) _HeaderPage()
         ],
       ),
     );

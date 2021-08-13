@@ -1,14 +1,22 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:custom_painter/models/layout_model.dart';
 import 'package:custom_painter/src/pages/launcher_tablet.dart';
 import 'package:custom_painter/src/themes/themechanger.dart';
-import 'package:flutter/material.dart';
 
 import 'package:custom_painter/src/pages/launcher.dart';
-import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => new ThemeChanger(2),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ThemeChanger>(
+          create: (_) => new ThemeChanger(2),
+        ),
+        ChangeNotifierProvider<LayoutModel>(
+          create: (_) => new LayoutModel(),
+        ),
+      ],
       child: MyApp(),
     ),
   );

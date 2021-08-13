@@ -18,6 +18,8 @@ class ButtonFat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return GestureDetector(
       onTap: onPressed,
       child: Stack(
@@ -34,8 +36,8 @@ class ButtonFat extends StatelessWidget {
                 height: 140,
               ),
               FaIcon(
-                FontAwesomeIcons.carCrash,
-                size: 50,
+                icon,
+                size: size.width * 0.08,
                 color: Colors.white,
               ),
               SizedBox(width: 25),
@@ -43,7 +45,7 @@ class ButtonFat extends StatelessWidget {
                 title,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
               ),
             ],

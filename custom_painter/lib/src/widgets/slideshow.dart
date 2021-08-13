@@ -150,13 +150,6 @@ class _Dots extends StatelessWidget {
       //color: Colors.red,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        /*
-        children: [
-          _Dot(size: size, index: 0),
-          _Dot(size: size, index: 1),
-          _Dot(size: size, index: 2),
-        ],
-        */
         children: List.generate(
           dots,
           (index) => _Dot(
@@ -194,14 +187,16 @@ class _Dot extends StatelessWidget {
       colorPoint = ssModel.colorSecondary;
     }
 
-    return AnimatedContainer(
-      duration: Duration(milliseconds: 200),
-      width: size.width * sizeBullet,
-      height: size.height * sizeBullet,
-      margin: EdgeInsets.symmetric(horizontal: size.width * 0.02),
-      decoration: BoxDecoration(
-        color: colorPoint,
-        shape: BoxShape.circle,
+    return Flexible(
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 200),
+        width: size.width * sizeBullet,
+        height: size.height * sizeBullet,
+        margin: EdgeInsets.symmetric(horizontal: size.width * 0.02),
+        decoration: BoxDecoration(
+          color: colorPoint,
+          shape: BoxShape.circle,
+        ),
       ),
     );
   }

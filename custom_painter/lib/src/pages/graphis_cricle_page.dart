@@ -14,48 +14,61 @@ class _GraphicsCirclePageState extends State<GraphicsCirclePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            setState(() {
-              percentaje += 10;
-              if (percentaje > 100) {
-                percentaje = 0;
-              }
-            });
-          },
-          child: Icon(Icons.refresh),
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            percentaje += 10;
+            if (percentaje > 100) {
+              percentaje = 0;
+            }
+          });
+        },
+        child: Icon(Icons.refresh),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Flexible(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                CustomRadialProgress(
-                  percentaje: percentaje,
-                  color: Colors.black,
+                Flexible(
+                  child: CustomRadialProgress(
+                    percentaje: percentaje,
+                    color: Colors.black,
+                  ),
                 ),
-                CustomRadialProgress(
-                  percentaje: percentaje * 1.2,
-                  color: Colors.amber,
+                Flexible(
+                  child: CustomRadialProgress(
+                    percentaje: percentaje * 1.2,
+                    color: Colors.amber,
+                  ),
                 ),
               ],
             ),
-            Row(
+          ),
+          Flexible(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                CustomRadialProgress(
-                  percentaje: percentaje * 1.6,
-                  color: Colors.red,
+                Flexible(
+                  child: CustomRadialProgress(
+                    percentaje: percentaje * 1.6,
+                    color: Colors.red,
+                  ),
                 ),
-                CustomRadialProgress(
-                  percentaje: percentaje * 0.5,
-                  color: Colors.blue,
+                Flexible(
+                  child: CustomRadialProgress(
+                    percentaje: percentaje * 0.5,
+                    color: Colors.blue,
+                  ),
                 ),
               ],
-            )
-          ],
-        ));
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
 

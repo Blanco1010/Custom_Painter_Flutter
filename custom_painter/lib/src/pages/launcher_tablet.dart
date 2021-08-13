@@ -1,17 +1,18 @@
-import 'package:custom_painter/src/pages/slideshow_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
-import 'package:custom_painter/src/themes/themechanger.dart';
 import 'package:custom_painter/src/routers/routers.dart';
+import 'package:custom_painter/src/themes/themechanger.dart';
+import 'package:custom_painter/models/layout_model.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 
 class LauncherTabletPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = Provider.of<ThemeChanger>(context);
+    final layoutModel = Provider.of<LayoutModel>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -34,7 +35,7 @@ class LauncherTabletPage extends StatelessWidget {
                 ? Colors.grey
                 : appTheme.currentTheme.accentColor,
           ),
-          Expanded(child: SlideshowPage()),
+          Expanded(child: layoutModel.currentPage),
         ],
       ),
     );
@@ -63,12 +64,16 @@ class _ListOptions extends StatelessWidget {
           color: appTheme.accentColor,
         ),
         onTap: () {
+          /*
           Navigator.push(
             context,
             CupertinoPageRoute(
               builder: (BuildContext context) => pagesRoute[i].page,
             ),
           );
+          */
+          final layoutModel = Provider.of<LayoutModel>(context, listen: false);
+          layoutModel.currentPage = pagesRoute[i].page;
         },
       ),
     );
