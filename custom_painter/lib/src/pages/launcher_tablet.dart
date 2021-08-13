@@ -1,3 +1,4 @@
+import 'package:custom_painter/src/pages/slideshow_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -7,19 +8,35 @@ import 'package:custom_painter/src/routers/routers.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-class LauncherPage extends StatelessWidget {
+class LauncherTabletPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
+    final appTheme = Provider.of<ThemeChanger>(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Diseños en Flutter - Teléfono'),
-        backgroundColor: appTheme.accentColor,
+        title: Text('Diseños en Flutter - Tablet'),
+        backgroundColor: appTheme.currentTheme.accentColor,
         centerTitle: true,
       ),
       drawer: _Menu(),
-      body: _ListOptions(),
+      body: Row(
+        children: <Widget>[
+          Container(
+            width: 300,
+            height: double.infinity,
+            child: _ListOptions(),
+          ),
+          Container(
+            width: 1,
+            height: double.infinity,
+            color: (appTheme.darkTheme)
+                ? Colors.grey
+                : appTheme.currentTheme.accentColor,
+          ),
+          Expanded(child: SlideshowPage()),
+        ],
+      ),
     );
   }
 }

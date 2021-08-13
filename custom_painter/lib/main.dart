@@ -1,3 +1,4 @@
+import 'package:custom_painter/src/pages/launcher_tablet.dart';
 import 'package:custom_painter/src/themes/themechanger.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,16 @@ class MyApp extends StatelessWidget {
       theme: currentTheme,
       title: 'Diseños APP',
       debugShowCheckedModeBanner: false,
-      home: LauncherPage(),
+      home: OrientationBuilder(
+          builder: (BuildContext context, Orientation orientation) {
+        final screenSize = MediaQuery.of(context).size;
+
+        if (screenSize.width > 500) {
+          return LauncherTabletPage();
+        } else {
+          return LauncherPage();
+        }
+      }),
     );
   }
 }
