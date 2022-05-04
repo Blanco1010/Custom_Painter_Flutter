@@ -35,7 +35,7 @@ class MySlideshow extends StatelessWidget {
     final appTheme = Provider.of<ThemeChanger>(context);
     return Slideshow(
       pointUp: false,
-      colorPrimary: appTheme.currentTheme.accentColor,
+      colorPrimary: Colors.blue,
       colorSecondary: Colors.grey,
       bulletPrimary: 0.05,
       bulletSecondary: 0.03,

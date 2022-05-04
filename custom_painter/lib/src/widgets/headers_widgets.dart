@@ -184,7 +184,11 @@ class _HeaderCurvePainter extends CustomPainter {
     path.moveTo(0, 0);
     path.lineTo(0, size.height * 0.25);
     path.quadraticBezierTo(
-        size.width * 0.5, size.width * 0.9, size.width, size.height * 0.25);
+      size.width * 0.5,
+      size.width * 0.9,
+      size.width,
+      size.height * 0.25,
+    );
     path.lineTo(size.width, 0);
 
     canvas.drawPath(path, paint);
@@ -228,17 +232,24 @@ class _HeaderWavesPainter extends CustomPainter {
 
     path.quadraticBezierTo(
       size.width * 0.25,
-      size.height * 0.4,
+      size.height * 0.5,
       size.width * 0.5,
       size.height * 0.3,
     );
 
     path.quadraticBezierTo(
-      size.width * 0.75,
-      size.height * 0.23,
-      size.width,
+      size.width * 0.8,
+      size.height * 0.05,
+      size.width * 1,
       size.height * 0.3,
     );
+
+    // path.quadraticBezierTo(
+    //   size.width * 0.75,
+    //   size.height * 0.23,
+    //   size.width,
+    //   size.height * 0.3,
+    // );
 
     path.lineTo(size.width, 0);
 
